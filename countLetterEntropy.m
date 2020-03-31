@@ -3,7 +3,6 @@
 % Author: Neal Patwari
 %
 
-
 % Consider characters ' abcdefghijklmnopqrstuvwxyz'
 considerChars = ' abcdefghijklmnopqrstuvwxyz';
 
@@ -16,10 +15,13 @@ fid   = fopen(fname);
 tline = fgets(fid);
 while (tline ~= -1)
 
-    % Pick out letters and spaces from tline, converting to a number from 1 to 27.
+    % Pick out letters and spaces from tline, 
+    % convert them to lower case, and then
+    % convert lower case letters and space to a number from 1 to 27.
     substr = lower(tline(find(isletter(tline) | tline == 32)));
     ordLet = charToOrder(substr);
 
+    % Increment the count for each character read on this line
     % Not efficient but does the trick.
     for i=1:length(ordLet)
         count(ordLet(i)) = count(ordLet(i)) + 1;
@@ -28,25 +30,8 @@ while (tline ~= -1)
 end
 fclose(fid);
 
-% Normalize the pdf.
+% Normalize the pmf so it sums to 1.0
 p = (count./sum(count));
-
-%s = 1;
-%zipf = 1./((1:length(p)).^s);
-%zipf = zipf / sum(zipf);
-%sortp = -sort(-p);
-%figure(2)
-%stem(sortp)
-%hold on
-%plot(1:length(p), zipf, 'k--')
-%hold off;
-%grid
-%set(gca,'FontSize',18)
-%xlabel('Letter, Order of Occurrance')
-%ylabel('Probability of Letter')
-%set(gca,'ylim',[0 0.3])
-%legend('Experimental','Zipf, s=1')
-%print -depsc plotLetterOrderPMF_vs_Zipf.eps
 
 % Compute the entropy
 H = entropy(p)
@@ -58,5 +43,5 @@ set(gca,'FontSize',24)
 set(gca,'xTick',[0, 6:5:26])
 set(gca,'xTickLabel',{'sp', 'f', 'k', 'p', 'u', 'z'})
 xlabel('Space or Letter')
-ylabel('P{occurrence}')
+ylabel('Probability Mass')
 

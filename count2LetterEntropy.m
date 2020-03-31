@@ -39,6 +39,9 @@ set(gca,'xlim',[-2 28])
 set(gca,'FontSize',24)
 set(gca,'xTick',[0, 6:5:26])
 set(gca,'xTickLabel',{'sp', 'f', 'k', 'p', 'u', 'z'})
-xlabel('Space or Letter')
-ylabel('P{occurrence}')
-
+xlabel('Second Character (Space or Letter)')
+set(gca,'yTick',[0, 6:5:26])
+set(gca,'yTickLabel',{'sp', 'f', 'k', 'p', 'u', 'z'})
+ylabel('First Character (Space or Letter)')
+title('Joint Probability Mass')
+colorbar();
